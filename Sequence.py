@@ -124,11 +124,11 @@ class Sequence(object):
 		# these are sequences that seem to have a frameshift mutation or truncation or by more than the allowed length limit (internal RE site or sequencing problem)
 		if not diff % 3 == 0 or abs(diff) > allowed_length_limit:
 			self.bad_sequence = True
-			print 'Out of frame mutation or truncation or incomplete sequence likely'
+			print 'The sequence has an unexpected length and probably has an out of frame mutation, truncation or was sequenced incompletely.'
 		
 		# these are sequences with same length as reference
 		elif len(self.sequence) == len(reference.sequence):
-			print 'expected length'
+			print 'The sequence has the expected length and can be analyzed normally.'
 	
 			self.mutation_positions, self.mutation_types, self.mutation_list, self.mutations = align_sequences(self.sequence, reference.sequence)
 
@@ -136,11 +136,16 @@ class Sequence(object):
 		else:
 			self.NNK_status = True
 			print 'Sequence could  be an NNK mutant with length polymorphism'# %self.filename
-			self.bad_sequence = True
-
+			self.analyze_potential_NNK_sequence()
+			
 		#self.truncation = False	
 
 		if len(self.aa_sequence) != len(reference.aa_sequence):
 			self.truncation = True
 		else:
 			self.aa_mutation_positions, self.aa_mutation_types, self.aa_mutationlist, self.aa_mutations = align_sequences(self.aa_sequence, reference.aa_sequence)
+
+
+	def analyze_potential_NNK_sequence(self):
+		print 'Switching to NNK mode'
+		self.bad_sequence = True

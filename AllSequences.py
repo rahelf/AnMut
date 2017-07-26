@@ -4,7 +4,7 @@
 # email: frick.rahel@gmail.com
 ####################################
 
-import os, os.path, re
+import os, os.path, re, sys
 from Sequence import Sequence
 import matplotlib.pyplot as plt
 from constants import *
@@ -117,20 +117,23 @@ class AllSequences(object):
 		#print self.dna_sequence_length
 		#print self.aa_sequence_length
 
-		for mutation in self.mutation_types:
-			if len(self.mutation_types_count.keys()) < 25:
-				self.mutation_types_count[mutation] = self.mutation_types.count(mutation)
+		for mutation in possible_dna_mutations:
+			self.mutation_types_count[mutation] = self.mutation_types.count(mutation)
 
 
 		#print self.aa_mutation_types		
-		for mutation in self.aa_mutation_types:
-			if len(self.aa_mutation_types_count.keys()) < 484:
-				self.aa_mutation_types_count[mutation] = self.aa_mutation_types.count(mutation)
+		for mutation in possible_aa_mutations:
+			self.aa_mutation_types_count[mutation] = self.aa_mutation_types.count(mutation)
 
 		self.mean_mutation_number = np.mean(self.mutation_numbers)
 		self.stdev_mutation_number = np.std(self.mutation_numbers)
 		#print self.names
 		#print self.stop_codons
+
+		if self.no_dna_seq == 0:
+			sys.exit('\n\nERROR: None of the provided sequences can be analyzed with AnMut. No output will be produced.')
+
+
 		print '#########################\nWriting output'
 		self.write_output()
 		print 'plotting mutation distribution over sequence'
@@ -219,8 +222,7 @@ class AllSequences(object):
 		try:
 			bin_max = max(self.mutation_numbers)
 		except ValueError:
-			print 'WARNING: No mutations recognized. I cannot print the distribution of mutation rates.'
-			bin_max = 1
+			sys.exit('WARNING: No mutations recognized. I cannot print the distribution of mutation rates.')
 		mutation_num_bins = np.linspace(-0.5, bin_max + 0.5, bin_max+2)
 		y, x, _ = plt.hist(self.mutation_numbers, bins=mutation_num_bins, histtype='stepfilled', color='#444B6E')
 		ax = plt.gca()
@@ -253,9 +255,9 @@ class AllSequences(object):
 
 	def plot_mutation_types(self):
 		plt.clf()
-		if len(list(self.mutation_types_count.values())) == 0:
-			print 'WARNING: No mutations recognized. I cannot plot the mutation types.'
-			return None
+		#if len(list(self.mutation_types_count.values())) == 0:
+			#print 'WARNING: No mutations recognized. I cannot plot the mutation types.'
+			#return None
 		ser = pd.Series(list(self.mutation_types_count.values()), index=pd.MultiIndex.from_tuples(self.mutation_types_count.keys()))
 		df =ser.unstack().fillna(0)
 		df.shape

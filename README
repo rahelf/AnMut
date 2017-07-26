@@ -1,0 +1,18 @@
+README
+
+------------------------
+Author: Rahel Frick
+frick.rahel@gmail.com
+------------------------
+
+
+Limitations of the script:
+
+The script is not abel to recognize seqeunces that have sequencing uncertainties ('nN') within the recognition sites in the beginning or the end. 
+
+
+Trouble Shooting:
+
+1. Sequences are not analyzed on amino acid level:
+	* Make sure that the sequence you are trying to read in contains a start codon. The first start codon within the sequence is used to determine the reading frame.
+
