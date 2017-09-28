@@ -60,9 +60,6 @@ class Sequence(object):
 		#print 'Identifier: %s\nSequence: %s' %(self.identifier, self.raw_sequence)
 
 
-		# In the beginning I also assume that sequences are not from an NNK library with length polymorphism
-		self.NNK_status = False
-
 		#print self.bad_sequence
 		if self.bad_sequence == False:
 
@@ -122,7 +119,7 @@ class Sequence(object):
 		diff = len(self.sequence) - len(reference.sequence)
 
 		# these are sequences that seem to have a frameshift mutation or truncation or by more than the allowed length limit (internal RE site or sequencing problem)
-		if not diff % 3 == 0 or abs(diff) > allowed_length_limit:
+		if not diff == 0:
 			self.bad_sequence = True
 			print 'The sequence has an unexpected length and probably has an out of frame mutation, truncation or was sequenced incompletely.'
 		
@@ -132,11 +129,6 @@ class Sequence(object):
 	
 			self.mutation_positions, self.mutation_types, self.mutation_list, self.mutations = align_sequences(self.sequence, reference.sequence)
 
-		# sequences that have in frame mutations (possibly NNK mutants)
-		else:
-			self.NNK_status = True
-			print 'Sequence could  be an NNK mutant with length polymorphism'# %self.filename
-			self.analyze_potential_NNK_sequence()
 			
 		#self.truncation = False	
 
@@ -146,6 +138,4 @@ class Sequence(object):
 			self.aa_mutation_positions, self.aa_mutation_types, self.aa_mutationlist, self.aa_mutations = align_sequences(self.aa_sequence, reference.aa_sequence)
 
 
-	def analyze_potential_NNK_sequence(self):
-		print 'Switching to NNK mode'
-		self.bad_sequence = True
+

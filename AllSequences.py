@@ -20,6 +20,9 @@ class AllSequences(object):
 
 		ref_seq = Sequence(reference_file, start_site, linker, end_site)
 
+		#start_site = ref_seq.sequence[0:6]
+		#end_site = ref_seq.sequence[-7:-1]
+
 		# getting start and end indices of linker in reference sequence
 		find_linker = re.search(linker, ref_seq.sequence)
 		self.start_linker = find_linker.start()

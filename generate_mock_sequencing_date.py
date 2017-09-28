@@ -1,11 +1,7 @@
 # script to generate mock sequencing data to compare to actual sequencing data
 # assuming normal distribution of mutations
 import numpy.random
-
-
-# ---------------------------------------------------------------------------
-bases = ['A', 'G', 'C', 'T']
-# ---------------------------------------------------------------------------
+from constants import bases
 
 
 

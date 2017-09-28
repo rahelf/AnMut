@@ -28,6 +28,14 @@ Example run:
 '''
 
 
+# To DO
+#
+# Make recognition sites automated (six first and six last bases of the reference sequence, can be overwritten by user input)
+# 
+# Fix two way alignment and include into AllSequences class.
+
+
+
 
 import argparse, os, sys#, Tkinter
 from Sequence import Sequence
@@ -93,15 +101,15 @@ if __name__=="__main__":
     print 'Sequence directories: ', dir_list
 
 
-    # saving  other variables
+# saving  other variables
     start_site = args.start
     end_site = args.end
     linker = args.linker
 
 
     print '\nUnderstood the following parameters:'
-    print 'start site: ', start_site
-    print 'end site: ', end_site
+#    print 'start site: ', start_site
+#    print 'end site: ', end_site
     print 'linker: ', linker
     print '\n(If any of these parameters are not correct, please rerun the program with the correct command line arguments.)'
     print '-----------------------------------------------------------------------'

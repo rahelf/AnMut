@@ -6,12 +6,13 @@
 ####################################
 
 
-from helper import get_all_combinations_from_list
 
+unknown = 'nNX'
 start_codon = 'ATG'
 
 bases = ['A', 'C', 'T', 'G']
 aminoacids= ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y' ]
+from helper import get_all_combinations_from_list
 
 possible_aa_mutations = get_all_combinations_from_list(aminoacids)
 possible_dna_mutations = get_all_combinations_from_list(bases)
