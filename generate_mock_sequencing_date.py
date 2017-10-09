@@ -5,7 +5,7 @@ from constants import bases
 
 
 
-def generate_mock_sequences(wt_sequence_file, mu, sigma, num_sequences=10, outdir='/Users/rahel/uni/scripts-and-templates/Ina_Sequencing/mock_mutants'):
+def generate_mock_sequences(wt_sequence_file, mu, sigma, start, end, num_sequences=10, outdir='/Users/rahel/uni/scripts-and-templates/Ina_Sequencing/mock_mutants'):
 	'''
 	The function takes an input wild type sequece file in fasta format,  a mean and standard deviation for number of mutations per sequence, and a number of sequences that are to be generated.
 	'''
@@ -29,7 +29,7 @@ def generate_mock_sequences(wt_sequence_file, mu, sigma, num_sequences=10, outdi
 
 
 
-def make_one_mock_sequence(wt_sequence, mu, sigma):
+def make_one_mock_sequence(wt_sequence, mu, sigma, start, end):
 	'''
 	Takes a wt sequence (string), a mean and standard deviation for how many mutations are required and returns a randomly mutated sequence.
 	'''
@@ -64,4 +64,4 @@ def make_one_mock_sequence(wt_sequence, mu, sigma):
 	return mutant_sequence
 
 # ---------------------------------------------------------------------------
-generate_mock_sequences('/Users/rahel/uni/scripts-and-templates/Ina_Sequencing/old/scFv7.fas', 53.6, 20.6, 1000)
+generate_mock_sequences('/Users/rahel/uni/scripts-and-templates/Ina_Sequencing/old/scFv7.fas', 53.6, 20.6, NcoI, NotI, 1000)

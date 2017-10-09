@@ -63,15 +63,15 @@ def parse_args():
     parser = argparse.ArgumentParser(description='This script will compare your mutant library sequences to a wildtype reference and visualize the results.')
 
 
-    reference_file = parser.add_argument('-ref_file', required=True, help='Please provide a fasta file of your reference sequence. This is usually the mother clone that you used as a template for the mutagenesis.\nPlease make sure the sequence is in fasta format and contains the recognitions sites in the beginning and the end (usually your RE sites used for cloning, like NcoI/NotI)')
+    reference_file = parser.add_argument('-ref_file', required=True, help='Please provide a fasta file of your reference sequence. This is usually the mother clone that you used as a template for the mutagenesis.\nPlease make sure the sequence is in fasta format and contains the recognitions sites in the beginning and the end (usually your RE sites used for cloning)')
 
     sequence_dirs = parser.add_mutually_exclusive_group()
-    sequence_dirs.add_argument('-seq_dir', help='This should be the path to your GATC directory.')
-    sequence_dirs.add_argument('-seq_dir_list', help='This should be a textfile containing absolute paths to several GATC directories. Only for advanced users.')
+    sequence_dirs.add_argument('-seq_dir', help='This should be the path to the folder containing your sequences.')
+    sequence_dirs.add_argument('-seq_dir_list', help='This should be a textfile containing absolute paths to several sequencing directories. Only for advanced users :).')
 
     start_site = parser.add_argument('-start', required=False, help='Please provide the recognition site that precedes the sequence of interest. Usually the 5 prime RE site. Default is the NcoI recognition site.', default='CCATGG')
 
-    end_site = parser.add_argument('-end', required=False, help='Please provide the recognition site that precedes the sequence of interest. Usually the 5 prime RE site. Default is the NotI recognition site.', default='GCGGCCGC')
+    end_site = parser.add_argument('-end', required=False, help='Please provide the recognition site that follows the sequence of interest. Usually the 3 prime RE site. Default is the NotI recognition site.', default='GCGGCCGC')
 
     linker = parser.add_argument('-linker', required=False, help='If you would like to highlight a specific stretch of your sequence, please copy it in. This could be the linker sequence. It will be visualized in the plots. If you do not want the linker to be visualized, just pass the flag -linker without an argument.', default='AAGCTTTCAGGGAGTGCATCCGCCCCAAAACTTGAAGAAGGTGAATTTTCAGAAGCACGCGTA')
 
@@ -82,11 +82,13 @@ def parse_args():
 if __name__=="__main__":
     args = parse_args()
     print '-----------------------------------------------------------------------'
+    print '-----------------------------------------------------------------------'
+    print '-----------------------------------------------------------------------'
     # making sure the reference file is specified correctly and saving the path
 
     if os.path.isfile(args.ref_file):
         ref_file = os.path.abspath(args.ref_file)
-        print 'Reading the following reference file: ', ref_file
+        print 'Reference file: ', ref_file
     else: 
         sys.exit('ERROR! Reference file was not recognized. Please provide the correct path to an existing reference file!')
 
@@ -98,7 +100,7 @@ if __name__=="__main__":
         f = open(args.seq_dir_list)
         for d in f.readlines():
             dir_list.append(os.path.abspath(d))
-    print 'Sequence directories: ', dir_list
+    print 'Sequence directories to process: ', dir_list
 
 
 # saving  other variables
@@ -108,10 +110,12 @@ if __name__=="__main__":
 
 
     print '\nUnderstood the following parameters:'
-#    print 'start site: ', start_site
-#    print 'end site: ', end_site
+    print 'start site: ', start_site
+    print 'end site: ', end_site
     print 'linker: ', linker
     print '\n(If any of these parameters are not correct, please rerun the program with the correct command line arguments.)'
+    print '-----------------------------------------------------------------------'
+    print '-----------------------------------------------------------------------'
     print '-----------------------------------------------------------------------'
 
 

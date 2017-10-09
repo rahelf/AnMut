@@ -62,8 +62,8 @@ class AllSequences(object):
 				self.names.append(test_sequence.name)
 				self.stop_codons.append(test_sequence.stop_codons)
 
-				self.mutationlist.append(test_sequence.mutationlist)
-				self.aa_mutationlist.append(test_sequence.aa_mutationlist)
+				self.mutationlist.append(test_sequence.mutation_list)
+				self.aa_mutationlist.append(test_sequence.aa_mutation_list)
 				self.mutation_numbers.append(test_sequence.mutations)
 				
 				if test_sequence.truncation == False:
@@ -185,7 +185,7 @@ class AllSequences(object):
 		try:
 			bin_max = max(self.mutation_positions)
 		except ValueError:
-			print "WARNING: No mutations recognized. I cannot plot the distributions of mutations."
+			print "WARNING: No mutations recognized!"
 			bin_max = 1
 
 		number_of_bins = np.linspace(-0.5, bin_max +0.5, bin_max+2)

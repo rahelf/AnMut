@@ -40,6 +40,7 @@ class Sequence(object):
 		self.mutation_positions= []
 		self.mutation_types = []
 		self.mutationlist = []
+		self.mutations = 0
 		
 		# Make empty sequence object for aa sequece
 		self.aa_sequence = Seq('')
@@ -114,28 +115,21 @@ class Sequence(object):
 	def align_to_reference(self, reference):
 
 		print 'Aligning sequence %s...' %self.filename
-		
-		# Does the test sequence have the same length as the reference sequence?
-		diff = len(self.sequence) - len(reference.sequence)
 
 		# these are sequences that seem to have a frameshift mutation or truncation or by more than the allowed length limit (internal RE site or sequencing problem)
-		if not diff == 0:
+		if not len(self.sequence) == len(reference.sequence):
 			self.bad_sequence = True
 			print 'The sequence has an unexpected length and probably has an out of frame mutation, truncation or was sequenced incompletely.'
 		
 		# these are sequences with same length as reference
-		elif len(self.sequence) == len(reference.sequence):
+		else:
 			print 'The sequence has the expected length and can be analyzed normally.'
-	
+			
+			#align the sequence on DNA level
 			self.mutation_positions, self.mutation_types, self.mutation_list, self.mutations = align_sequences(self.sequence, reference.sequence)
 
+			self.aa_mutation_positions, self.aa_mutation_types, self.aa_mutation_list, self.aa_mutations = align_sequences(self.aa_sequence, reference.aa_sequence)
 			
-		#self.truncation = False	
-
-		if len(self.aa_sequence) != len(reference.aa_sequence):
-			self.truncation = True
-		else:
-			self.aa_mutation_positions, self.aa_mutation_types, self.aa_mutationlist, self.aa_mutations = align_sequences(self.aa_sequence, reference.aa_sequence)
-
+			print self.aa_mutation_list
 
 
