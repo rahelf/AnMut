@@ -172,6 +172,8 @@ class AllSequences(object):
 			f.write(self.names[i]+'\n')
 			f.write('Mutations on DNA level: ')
 			f.write(" ".join(self.mutationlist[i]))
+			f.write('\nMutations on AA level: ')
+			f.write(" ".join(self.aa_mutationlist[i]))
 			f.write('\nAmino Acid Sequence:\n')
 			f.write(self.aa_sequences[i])
 			f.write('\n Stop codons in this sequence: %s' %(self.stop_codons[i]))
