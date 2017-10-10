@@ -10,7 +10,7 @@ unknown = 'nNX'
 def compare_sequences(sequence_position, reference_position):
 	'''Takes two characters that are to be compared and returns if the sequence is identical (True) or not (false)
 	'''
-	if reference_position == sequence_position or reference_position == sequence_position.upper() or sequence_position in unknown:
+	if reference_position == sequence_position or reference_position == sequence_position.upper() or sequence_position in unknown or reference_position.upper() == sequence_position:
 		return True
 
 	else:

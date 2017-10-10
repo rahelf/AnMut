@@ -19,9 +19,10 @@ class AllSequences(object):
 	def __init__(self, directory, reference_file, start_site, linker, end_site):
 
 		ref_seq = Sequence(reference_file, start_site, linker, end_site)
+		self.ref_file = reference_file
 
-		#start_site = ref_seq.sequence[0:6]
-		#end_site = ref_seq.sequence[-7:-1]
+		self.start_site = start_site
+		self.end_site = end_site
 
 		# getting start and end indices of linker in reference sequence
 		find_linker = re.search(linker, ref_seq.sequence)
@@ -151,6 +152,7 @@ class AllSequences(object):
 	def write_output(self):
 		outfile = os.path.join(self.directory, 'sequence_report.txt')
 		f = open(outfile, 'w')
+		f.write('Run parameters:\nstart: %s\nend: %s\nmother clone: %s\n\n' %(self.start_site, self.end_site, self.ref_file))
 		f.write('Please check the following sequences manually:\n')
 		for item in self.bad_sequences:
 			f.write(item + '\n')
@@ -195,8 +197,8 @@ class AllSequences(object):
 			plt.plot([])
 		else:
 			y, x, _ = plt.hist(self.mutation_positions, bins = number_of_bins, color='#444B6E', linewidth=0)
-			plt.axvline(self.start_linker, linewidth=2, color='crimson')
-			plt.axvline(self.end_linker, linewidth=2, color='crimson')
+			#plt.axvline(self.start_linker, linewidth=2, color='crimson')
+			#plt.axvline(self.end_linker, linewidth=2, color='crimson')
 			plt.yticks(np.arange(0, max(y)+1, 10))
 			plt.title('Mutation positions on DNA level')
 			plt.ylim(0, y.max()+1)
@@ -211,8 +213,8 @@ class AllSequences(object):
 				bin_max = 1
 			number_of_bins = np.linspace(-0.5, bin_max + 0.5, bin_max + 2)
 			y, x, _ = plt.hist(self.aa_mutation_positions, bins=number_of_bins, color='#444B6E', linewidth=0)
-			plt.axvline(self.start_linker/3, linewidth=2, color='crimson')
-			plt.axvline(self.end_linker/3, linewidth=2, color='crimson')
+			#plt.axvline(self.start_linker/3, linewidth=2, color='crimson')
+			#plt.axvline(self.end_linker/3, linewidth=2, color='crimson')
 			plt.title('Mutation positions on amino acid level')
 			plt.yticks(np.arange(0, self.aa_sequence_length+1, 10))
 			plt.ylim(0, y.max()+1)

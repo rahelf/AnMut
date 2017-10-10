@@ -30,9 +30,8 @@ Example run:
 
 # To DO
 #
-# Make recognition sites automated (six first and six last bases of the reference sequence, can be overwritten by user input)
+# remove linker stuff
 # 
-# Fix two way alignment and include into AllSequences class.
 
 
 
@@ -73,7 +72,7 @@ def parse_args():
 
     end_site = parser.add_argument('-end', required=False, help='Please provide the recognition site that follows the sequence of interest. Usually the 3 prime RE site. Default is the NotI recognition site.', default='GCGGCCGC')
 
-    linker = parser.add_argument('-linker', required=False, help='If you would like to highlight a specific stretch of your sequence, please copy it in. This could be the linker sequence. It will be visualized in the plots. If you do not want the linker to be visualized, just pass the flag -linker without an argument.', default='AAGCTTTCAGGGAGTGCATCCGCCCCAAAACTTGAAGAAGGTGAATTTTCAGAAGCACGCGTA')
+    linker = parser.add_argument('-linker', required=False, help='If you would like to highlight a specific stretch of your sequence, please copy it in. This could be the linker sequence. It will be visualized in the plots. If you do not want the linker to be visualized, just pass the flag -linker without an argument.', default='')
 
     parser.add_argument('--version', action='version', version='%(prog)s version 0.2, (c) Rahel Frick <frick.rahel@gmail.com>')
 
